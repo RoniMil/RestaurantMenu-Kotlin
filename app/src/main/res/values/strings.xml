@@ -7,9 +7,9 @@
 
     <string name="lang">ENG</string>
 
-    <string name="num_of_seats_text">Number of guests?</string>
+    <string name="num_of_seats_text">How many guests?</string>
 
-    <string name="payment_method_text">Select payment method</string>
+    <string name="payment_method_text">Payment method</string>
 
     <string name="vegan_text">Vegan?</string>
 

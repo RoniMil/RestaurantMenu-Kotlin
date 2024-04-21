@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="10dp">
 
     <!-- Menu title -->
@@ -11,13 +11,13 @@
         android:id="@+id/menuTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
         android:text="@string/menu_text"
         android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="16dp"/>
 
 
     <!-- Language selection button -->
@@ -34,7 +34,7 @@
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toStartOf="@id/menuTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,86 +43,80 @@
         android:id="@+id/reserveSeatsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:background="@drawable/pink_rounded_btn"
-        android:gravity="center"
         android:text="@string/reserve_btn_text"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_marginBottom="16dp" />
 
     <!-- Seat selection button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/numOfSeatsButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:gravity="center"
         android:text="@string/num_of_seats_text"
         android:textColor="@color/black"
         android:textSize="11sp"
         app:icon="@drawable/chair_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/paymentButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/paymentButton"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/reserveSeatsButton" />
 
-    <!-- Time select button -->
+    <!-- Payment method selection button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/paymentButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="12dp"
         android:text="@string/payment_method_text"
         android:textColor="@color/black"
         android:textSize="11sp"
         app:icon="@drawable/payment_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
         app:layout_constraintEnd_toStartOf="@id/timeButton"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/numOfSeatsButton"
+        app:layout_constraintTop_toTopOf="@id/reserveSeatsButton" />
 
-    <!-- Payment method selection button -->
+    <!-- Time select button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/timeButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/timeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="12dp"
         android:text="@string/time_text"
-        android:textColor="@color/black"
         android:textSize="11sp"
+        android:textColor="@color/black"
         app:icon="@drawable/time_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
+        app:layout_constraintTop_toTopOf="@id/reserveSeatsButton"
         app:layout_constraintEnd_toStartOf="@id/veganButton"
-        app:layout_constraintStart_toEndOf="@id/paymentButton" />
+        app:layout_constraintStart_toEndOf="@id/paymentButton"
+        />
 
     <!-- Vegan selection button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/veganButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/veganButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginBottom="12dp"
         android:text="@string/vegan_text"
-        android:textColor="@color/black"
         android:textSize="11sp"
+        android:textColor="@color/black"
         app:icon="@drawable/vegan_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
-        app:layout_constraintStart_toEndOf="@id/timeButton" />
+        app:layout_constraintTop_toTopOf="@id/reserveSeatsButton"
+        app:layout_constraintStart_toEndOf="@id/timeButton"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
