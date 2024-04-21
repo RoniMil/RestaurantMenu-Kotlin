@@ -16,29 +16,84 @@
 
     <!-- Language selection button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/lang_btn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/lang_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lang"
         android:textSize="12sp"
-        app:textColor="@color/black"
+        android:textColor="@color/black"
         app:icon="@drawable/lang_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:gravity="center_vertical|start" />
+        />
+
+    <!-- Seat selection button -->
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/num_of_seats_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/num_of_seats_text"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        app:icon="@drawable/chair_icon"
+        app:iconGravity="textStart"
+        app:iconTint="@color/black"
+        />
+
+    <!-- Payment method selection button -->
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/payment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/payment_method_text"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        app:icon="@drawable/payment_icon"
+        app:iconGravity="textStart"
+        app:iconTint="@color/black"
+        />
+
+    <!-- Time select button -->
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/time_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_text"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        app:icon="@drawable/time_icon"
+        app:iconGravity="textStart"
+        app:iconTint="@color/black"
+        />
+
+    <!-- Vegan selection button -->
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/vegan_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vegan_text"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        app:icon="@drawable/vegan_icon"
+        app:iconGravity="textStart"
+        app:iconTint="@color/black"
+        />
+
+
 
     <!-- Reserve seats button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/reserve_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/pink_rounded_btn"
         android:gravity="center"
         android:text="@string/reserve_btn_text"
-        android:textAllCaps="false"
         android:textSize="15sp" />
 
 

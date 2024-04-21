@@ -7,5 +7,13 @@
 
     <string name="lang">ENG</string>
 
+    <string name="num_of_seats_text">Number of guests?</string>
+
+    <string name="payment_method_text">Select payment method</string>
+
+    <string name="vegan_text">Vegan?</string>
+
+    <string name="time_text">Select time</string>
+
 
 </resources>

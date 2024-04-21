@@ -8,4 +8,12 @@
 
     <string name="lang">HE</string>
 
+    <string name="num_of_seats_text">כמה תהיו?</string>
+
+    <string name="payment_method_text">בחר שיטת תשלום</string>
+
+    <string name="vegan_text">טבעוני?</string>
+
+    <string name="time_text">בחר שעה</string>
+
 </resources>
