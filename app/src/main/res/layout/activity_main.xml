@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp" >
+    android:padding="15dp">
 
+    <!-- Menu title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Menu"
+        android:text="@string/menu_text"
         android:textSize="35sp" />
+
+    <!-- Language selection button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/lang_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lang"
+        android:textSize="12sp"
+        app:textColor="@color/black"
+        app:icon="@drawable/lang_icon"
+        app:iconGravity="textStart"
+        app:iconTint="@color/black"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:gravity="center_vertical|start" />
+
+    <!-- Reserve seats button -->
+    <Button
+        android:id="@+id/reserve_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pink_rounded_btn"
+        android:gravity="center"
+        android:text="@string/reserve_btn_text"
+        android:textAllCaps="false"
+        android:textSize="15sp" />
 
 
 </LinearLayout>

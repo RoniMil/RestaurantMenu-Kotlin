@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MidtermDrill</string>
+
+    <string name="menu_text">Menu</string>
+
+    <string name="reserve_btn_text">Reserve Seats</string>
+
+    <string name="lang">ENG</string>
+
+
 </resources>

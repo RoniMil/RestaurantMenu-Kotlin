@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">MidtermDrill</string>
+
+    <string name="menu_text">תפריט</string>
+
+    <string name="reserve_btn_text">הזמן מקום</string>
+
+    <string name="lang">HE</string>
+
 </resources>
