@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!-- Landscape view layout -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/menu_text"
         android:textSize="35sp"
@@ -20,14 +21,13 @@
 
 
     <!-- Language selection button -->
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/languageButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/CustomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/lang"
-        android:textColor="@color/black"
         android:textSize="12sp"
         app:icon="@drawable/lang_icon"
         app:iconGravity="textStart"
@@ -38,50 +38,86 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Reserve seats button -->
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/reserveSeatsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/pink_rounded_btn"
         android:gravity="center"
         android:text="@string/reserve_btn_text"
         android:textSize="15sp"
+        app:backgroundTint="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Seat selection button -->
-
-    <!-- Time select button -->
-    <com.google.android.material.button.MaterialButton
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numOfSeatsButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="@string/num_of_seats_text"
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        app:icon="@drawable/chair_icon"
-        app:iconGravity="textStart"
-        app:iconTint="@color/black"
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/seat_selector_outline"
         app:layout_constraintBottom_toTopOf="@id/paymentButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.756"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.button.MaterialButton
+        <!-- Decrease seat number Button -->
+        <Button
+            android:id="@+id/decreaseButton"
+            style="@style/CustomButton"
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="-"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@id/numOfSeatsText"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Number of selected seats display -->
+        <TextView
+            android:id="@+id/numOfSeatsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/num_of_seats_text"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/increaseButton"
+            app:layout_constraintStart_toEndOf="@id/decreaseButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Increase seat number button -->
+        <Button
+            android:id="@+id/increaseButton"
+            style="@style/CustomButton"
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="+"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/numOfSeatsText"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Payment method selection button -->
+    <Button
         android:id="@+id/paymentButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/CustomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="12dp"
         android:text="@string/payment_method_text"
-        android:textColor="@color/black"
-        android:textSize="11sp"
         app:icon="@drawable/payment_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
@@ -90,36 +126,31 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Payment method selection button -->
-    <com.google.android.material.button.MaterialButton
+    <!-- Time select button -->
+    <Button
         android:id="@+id/timeButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/CustomButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="12dp"
         android:text="@string/time_text"
-        android:textColor="@color/black"
-        android:textSize="11sp"
         app:icon="@drawable/time_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
         app:layout_constraintEnd_toStartOf="@+id/veganButton"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/paymentButton" />
 
     <!-- Vegan selection button -->
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/veganButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/CustomButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginBottom="12dp"
         android:text="@string/vegan_text"
-        android:textColor="@color/black"
-        android:textSize="11sp"
         app:icon="@drawable/vegan_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
