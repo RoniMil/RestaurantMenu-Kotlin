@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Landscape view layout -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
@@ -55,7 +56,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numOfSeatsButton"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/seat_selector_outline"
         app:layout_constraintBottom_toTopOf="@id/paymentButton"
@@ -66,7 +67,7 @@
         <Button
             android:id="@+id/decreaseButton"
             style="@style/CustomButton"
-            android:layout_width="46dp"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:insetTop="0dp"
@@ -74,9 +75,9 @@
             android:text="-"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@id/numOfSeatsText"
-            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
         <!-- Number of selected seats display -->
         <TextView
@@ -96,7 +97,7 @@
         <Button
             android:id="@+id/increaseButton"
             style="@style/CustomButton"
-            android:layout_width="46dp"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:insetTop="0dp"
@@ -105,7 +106,8 @@
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/numOfSeatsText"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,15 +125,17 @@
         app:iconTint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
         app:layout_constraintEnd_toStartOf="@id/timeButton"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed" />
 
     <!-- Time select button -->
     <Button
         android:id="@+id/timeButton"
         style="@style/CustomButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="12dp"
         android:text="@string/time_text"
@@ -146,7 +150,7 @@
     <Button
         android:id="@+id/veganButton"
         style="@style/CustomButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginBottom="12dp"
@@ -155,7 +159,8 @@
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
-        app:layout_constraintStart_toEndOf="@id/timeButton" />
+        app:layout_constraintStart_toEndOf="@id/timeButton"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
