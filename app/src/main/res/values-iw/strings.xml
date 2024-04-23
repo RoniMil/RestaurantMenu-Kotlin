@@ -16,4 +16,8 @@
 
     <string name="time_text">בחר שעה</string>
 
+    <string name="food_section_title">אוכל</string>
+
+    <string name="drinks_section_title">שתיה</string>
+
 </resources>

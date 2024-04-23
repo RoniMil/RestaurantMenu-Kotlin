@@ -15,5 +15,9 @@
 
     <string name="time_text">Select time</string>
 
+    <string name="food_section_title">Food</string>
+
+    <string name="drinks_section_title">Drinks</string>
+
 
 </resources>
