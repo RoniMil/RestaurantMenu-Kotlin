@@ -6,7 +6,7 @@
 
     <string name="reserve_btn_text">הזמן מקום</string>
 
-    <string name="lang">HE</string>
+    <string name="lang">עברית</string>
 
     <string name="num_of_seats_text">כמה תהיו?</string>
 
@@ -19,5 +19,36 @@
     <string name="food_section_title">אוכל</string>
 
     <string name="drinks_section_title">שתיה</string>
+
+    <!-- food and drink item names and descriptions -->
+    <string name="fried_chicken_wings_name">כנפיים מטוגנות</string>
+    <string name="fried_chicken_wings_desc">כנפי עוף מטוגנות ופריכות. מוגשות עם רוטב חמצמץ, מטבל ראנץ\' וכוסברה.</string>
+
+    <string name="greek_salad_name">סלט יווני</string>
+    <string name="greek_salad_desc">סלט עם חסה פריכה, עגבניות בשלות, מלפפונים, זיתי קלמטה, בצל וגבינת פטה. מוגש עם רוטב מבוסס שמן זית.</string>
+
+    <string name="mini_burger_trio_name">שלישיית מיני המבורגרים</string>
+    <string name="mini_burger_trio_desc">שלישיית מיני בורגרים עסיסיים. מוגשים עם גבינת צ\'דר, חסה, עגבניה ולחמניות טריות בציפוי שומשום.</string>
+
+    <string name="pizza_margherita_name">פיצה מרגריטה</string>
+    <string name="pizza_margherita_desc">פיצה נפוליטנית עם רוטב עגבניות, מוצרלה ובזיליקום טרי.</string>
+
+    <string name="spring_rolls_name">ספרינג רולס</string>
+    <string name="spring_rolls_desc">רולים מנייר אורז הממולאים בירקות טריים וטופו. מוגשים עם רוטב חמצמץ.</string>
+
+    <string name="beer_name">בירה</string>
+    <string name="beer_desc">כוס של בירה זהובה מהחבית.</string>
+
+    <string name="daiquiri_name">דאקירי תות</string>
+    <string name="daiquiri_desc">קוקטייל קר ומתוק המורכב מתותים, רום ומיץ ליים. מוגש עם דובדבן ועלי מנטה לקישוט.</string>
+
+    <string name="margarita_name">מרגריטה ליים</string>
+    <string name="margarita_desc">קוקטייל קלאסי הכולל טקילה, טריפל סק וליים.</string>
+
+    <string name="moscow_mule_name">מוסקו מיול</string>
+    <string name="moscow_mule_desc">קוקטייל מבוסס ג\'ינג\'ר ביר בערבוב עם וודקה. מוגש עם פלח ליים טרי.</string>
+
+    <string name="pina_colada_name">פינה קולדה</string>
+    <string name="pina_colada_desc">קוקטייל מרענן המשלב קרם קוקוס, מיץ אננס ורום לבן. מוגש בכוס גבוהה ומעוטר בפרוסת אננס ודובדבן.</string>
 
 </resources>

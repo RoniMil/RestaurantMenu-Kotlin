@@ -1,11 +1,13 @@
+<!-- English strings localization xml -->
 <resources>
     <string name="app_name">MidtermDrill</string>
 
+    <!-- Text elements and buttons -->
     <string name="menu_text">Menu</string>
 
     <string name="reserve_btn_text">Reserve Seats</string>
 
-    <string name="lang">EN</string>
+    <string name="lang">English</string>
 
     <string name="num_of_seats_text">How many seats?</string>
 
@@ -18,6 +20,39 @@
     <string name="food_section_title">Food</string>
 
     <string name="drinks_section_title">Drinks</string>
+
+    <!-- food and drink item names and descriptions -->
+    <string name="fried_chicken_wings_name">Fried Chicken Wings</string>
+    <string name="fried_chicken_wings_desc">Juicy wings coated in tangy sauce, served with a side of ranch dip and fresh cilantro.</string>
+
+    <string name="greek_salad_name">Greek Salad</string>
+    <string name="greek_salad_desc">A medley of crisp lettuce, ripe tomatoes, cucumbers, olives, and onions, topped with feta cheese and a light, olive oil-based dressing.</string>
+
+    <string name="mini_burger_trio_name">Mini Burger Trio</string>
+    <string name="mini_burger_trio_desc">A selection of three mini burgers, each with a juicy patty, melted cheese, fresh lettuce, and tomato, served on sesame-seeded buns.</string>
+
+    <string name="pizza_margherita_name">Pizza Margherita</string>
+    <string name="pizza_margherita_desc">A rustic Italian classic with mozzarella, fresh basil, and rich tomato sauce on a crispy, golden crust.</string>
+
+    <string name="spring_rolls_name">Spring Rolls</string>
+    <string name="spring_rolls_desc">Fresh rice paper rolls filled with crisp vegetables and tender tofu paired with a tangy dipping sauce.</string>
+
+    <string name="beer_name">Beer</string>
+    <string name="beer_desc">A serving of frothy, golden beer</string>
+
+    <string name="daiquiri_name">Strawberry Daiquiri</string>
+    <string name="daiquiri_desc">A sweet and icy blend of ripe strawberries, rum, and lime juice, garnished with a skewered cherry and mint.</string>
+
+    <string name="margarita_name">Lime Margarita</string>
+    <string name="margarita_desc">A classic cocktail with a perfect balance of tequila, triple sec, and lime.</string>
+
+    <string name="moscow_mule_name">Moscow Mule</string>
+    <string name="moscow_mule_desc">A crisp, ginger-beer-based cocktail mixed with vodka, accented with a fresh lime wedge.</string>
+
+    <string name="pina_colada_name">Piña Colada</string>
+    <string name="pina_colada_desc">A creamy, smooth blend of coconut cream, pineapple juice, and white rum, served in a tall glass and garnished with a slice of pineapple and a cherry.</string>
+
+
 
 
 </resources>

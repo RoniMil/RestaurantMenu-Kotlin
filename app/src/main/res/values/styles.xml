@@ -8,4 +8,14 @@
         <item name="cornerRadius">4dp</item>
         <item name="layout_constraintWidth_max">320dp</item>
     </style>
+
+    <style name="LanguageDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:padding">24dp</item>
+        <item name="colorAccent">@color/purple_500</item>
+    </style>
+
+
 </resources>
