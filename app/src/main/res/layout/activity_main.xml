@@ -5,9 +5,9 @@
     android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fadeScrollbars="false"
     android:fillViewport="true"
-    android:scrollbars="vertical"
-    android:fadeScrollbars="false">
+    android:scrollbars="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:padding="16dp"
             app:layout_constraintBottom_toTopOf="@id/numOfSeats"
             app:layout_constraintTop_toBottomOf="@id/menuTitle">
@@ -63,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/food_section_title"
-                app:icon="@drawable/arrow_upward"
+                app:icon="@drawable/arrow_downward"
                 app:iconGravity="end"
                 app:iconTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,8 +75,10 @@
                 android:id="@+id/recyclerViewFood"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="visible"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/drinksButton"
                 app:layout_constraintTop_toBottomOf="@id/foodButton" />
 
             <!-- Drinks Section Toggle Button -->
@@ -86,7 +88,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/drinks_section_title"
-                app:icon="@drawable/arrow_upward"
+                app:icon="@drawable/arrow_downward"
                 app:iconGravity="end"
                 app:iconTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,8 +100,11 @@
                 android:id="@+id/recyclerViewDrinks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/drinksButton" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Reserve seats button -->

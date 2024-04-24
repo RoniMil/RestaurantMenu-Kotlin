@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.View
 import androidx.core.widget.NestedScrollView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 
 
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerViewFood: RecyclerView
     private lateinit var recyclerViewDrinks: RecyclerView
     private lateinit var nestedScrollView: NestedScrollView
+    private lateinit var foodAdapter: MenuAdapter
+    private lateinit var drinksAdapter: MenuAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,9 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize view components
         initViews()
+
+        // Initialize adapters
+        initAdapters()
 
         // Setup scroll view to enable scrolling
         setupScrollView()
@@ -65,6 +71,47 @@ class MainActivity : AppCompatActivity() {
         recyclerViewFood = findViewById(R.id.recyclerViewFood)
         recyclerViewDrinks = findViewById(R.id.recyclerViewDrinks)
         nestedScrollView = findViewById(R.id.nestedScrollView)
+
+    }
+
+    // create food menu items and return them in a list
+    private fun setupFood() : List<MenuItem> {
+        val chickenWings = MenuItem(getString(R.string.fried_chicken_wings_name), "₪35", getString(R.string.fried_chicken_wings_desc), R.drawable.fried_chicken_wings.toString())
+        val greekSalad = MenuItem(getString(R.string.greek_salad_name), "₪40", getString(R.string.greek_salad_desc), R.drawable.greek_salad.toString())
+        val burgers = MenuItem(getString(R.string.mini_burger_trio_name), "₪45", getString(R.string.mini_burger_trio_desc), R.drawable.mini_burger_trio.toString())
+        val pizza = MenuItem(getString(R.string.pizza_margherita_name), "₪50", getString(R.string.pizza_margherita_desc), R.drawable.pizza_margherita.toString())
+        val springRolls = MenuItem(getString(R.string.spring_rolls_name), "₪35", getString(R.string.spring_rolls_desc), R.drawable.spring_rolls.toString())
+        return listOf(chickenWings, greekSalad, burgers, pizza, springRolls)
+    }
+
+    // create drinks menu items and return them im a list
+    private fun setupDrinks() : List<MenuItem> {
+        val beer = MenuItem(getString(R.string.beer_name), "₪25", getString(R.string.beer_desc), R.drawable.beer.toString())
+        val daiquiri = MenuItem(getString(R.string.daiquiri_name), "₪35", getString(R.string.daiquiri_desc), R.drawable.daiquiri.toString())
+        val margarita = MenuItem(getString(R.string.margarita_name), "₪40", getString(R.string.mini_burger_trio_desc), R.drawable.margarita.toString())
+        val moscowMule = MenuItem(getString(R.string.moscow_mule_name), "₪35", getString(R.string.moscow_mule_desc), R.drawable.moscow_mule.toString())
+        val pinaColada = MenuItem(getString(R.string.pina_colada_name), "₪40", getString(R.string.pina_colada_desc), R.drawable.pina_colada.toString())
+        return listOf(beer, daiquiri, margarita, moscowMule, pinaColada)
+    }
+
+    private fun initAdapters() {
+        // Setup the food items' objects into a list
+        val foodItems = setupFood()
+
+        // Setup the drink items' objects into a list
+        val drinkItems = setupDrinks()
+
+        // init the adapters and setup layout manager
+        foodAdapter = MenuAdapter(foodItems)
+        drinksAdapter = MenuAdapter(drinkItems)
+
+        recyclerViewFood.adapter = foodAdapter
+        recyclerViewFood.layoutManager = LinearLayoutManager(this)
+
+        recyclerViewDrinks.adapter = drinksAdapter
+        recyclerViewDrinks.layoutManager = LinearLayoutManager(this)
+
+
 
     }
 
@@ -98,7 +145,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupScrollView() {
-        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, oldScrollX, oldScrollY ->
             if (scrollY > oldScrollY) {
                 Toast.makeText(this, "Scrolling down", Toast.LENGTH_SHORT).show()
             }
