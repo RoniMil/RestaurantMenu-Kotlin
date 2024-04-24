@@ -29,13 +29,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/lang"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:icon="@drawable/lang_icon"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEOf="@id/menuTitle"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/menuTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="1dp"
+
+        />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +46,7 @@
         android:layout_height="0dp"
         android:padding="16dp"
         app:layout_constraintTop_toBottomOf="@id/menuTitle"
-        app:layout_constraintBottom_toTopOf="@id/numOfSeatsButton" >
+        app:layout_constraintBottom_toTopOf="@id/numOfSeats" >
 
         <!-- Food Section Toggle Button -->
         <Button
@@ -60,20 +63,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/groupFood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="recyclerViewFood" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFood"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/foodButton"
-            app:layout_constraintBottom_toTopOf="@+id/drinksButton" />
+            app:layout_constraintTop_toBottomOf="@id/foodButton"
+            android:visibility="visible" />
 
         <!-- Drinks Section Toggle Button -->
         <Button
@@ -90,19 +86,13 @@
             app:layout_constraintTop_toBottomOf="@id/recyclerViewFood"
             tools:ignore="HardcodedText" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/groupDrinks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="recyclerViewDrinks" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDrinks"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/drinksButton"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/drinksButton"
+            android:visibility="visible"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Reserve seats button -->
@@ -121,7 +111,7 @@
 
     <!-- Seat selection button -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/numOfSeatsButton"
+        android:id="@+id/numOfSeats"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginBottom="12dp"
