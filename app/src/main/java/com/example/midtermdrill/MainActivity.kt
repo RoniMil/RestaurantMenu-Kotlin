@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.View
+import androidx.core.widget.NestedScrollView
+import android.widget.Toast
 import com.google.android.material.button.MaterialButton
 
 
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var veganButton: MaterialButton
     private lateinit var recyclerViewFood: RecyclerView
     private lateinit var recyclerViewDrinks: RecyclerView
+    private lateinit var nestedScrollView: NestedScrollView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize view components
         initViews()
+
+        // Setup scroll view to enable scrolling
+        setupScrollView()
 
         // Setup click listeners for interaction
         setupListeners()
@@ -57,6 +64,8 @@ class MainActivity : AppCompatActivity() {
         veganButton = findViewById<MaterialButton>(R.id.veganButton)
         recyclerViewFood = findViewById(R.id.recyclerViewFood)
         recyclerViewDrinks = findViewById(R.id.recyclerViewDrinks)
+        nestedScrollView = findViewById(R.id.nestedScrollView)
+
     }
 
     private fun setupListeners() {
@@ -86,6 +95,23 @@ class MainActivity : AppCompatActivity() {
 
 
         // setup listener for reserve seats button
+    }
+
+    private fun setupScrollView() {
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > oldScrollY) {
+                Toast.makeText(this, "Scrolling down", Toast.LENGTH_SHORT).show()
+            }
+            if (scrollY < oldScrollY) {
+                Toast.makeText(this, "Scrolling up", Toast.LENGTH_SHORT).show()
+            }
+            if (scrollY == 0) {
+                Toast.makeText(this, "Reached the top", Toast.LENGTH_SHORT).show()
+            }
+            if (!v.canScrollVertically(1)) {
+                Toast.makeText(this, "Reached the bottom", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     // Helper function to toggle the visibility of the RecyclerView sections for food and drinks
