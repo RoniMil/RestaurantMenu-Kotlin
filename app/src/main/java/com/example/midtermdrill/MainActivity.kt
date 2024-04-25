@@ -38,6 +38,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var foodAdapter: MenuAdapter
     private lateinit var drinksAdapter: MenuAdapter
 
+    // counter for the number of seats selected, initialized to 0
+    private var numOfSeats = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,13 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize view components
         initViews()
+
+        // Sets the minimum width of the number of seats text box so that it won't change from initial width
+        numOfSeatsText.post {
+            val width = numOfSeatsText.width
+            numOfSeatsText.minWidth = width
+        }
+
 
         // Initialize adapters
         initAdapters()
@@ -132,14 +143,14 @@ class MainActivity : AppCompatActivity() {
             toggleSection(recyclerViewDrinks, drinksButton)
         }
 
-//        // Setup listener for the number of seats increase and decrease buttons
-//        increaseButton.setOnClickListener {
-//
-//        }
-//
-//        decreaseButton.setOnClickListener {
-//
-//        }
+        // Setup listener for the number of seats increase and decrease buttons
+        increaseButton.setOnClickListener {
+            handleSeatChange(increment = true)
+        }
+
+        decreaseButton.setOnClickListener {
+            handleSeatChange(increment = false)
+        }
 
 
         // Setup listener for payment method button
@@ -193,6 +204,21 @@ class MainActivity : AppCompatActivity() {
 
             recyclerView.startAnimation(slideDown)
             button.setIconResource(R.drawable.arrow_upward)
+        }
+    }
+
+    // Updates the number of seats according to which button was pressed - increase/decrease
+    private fun handleSeatChange(increment: Boolean) {
+        // Cap number of available seats at 8
+        if (increment && numOfSeats < 8) {
+            numOfSeats++
+        // Ensure number of seats isnt negative
+        } else if (!increment && numOfSeats > 0) {
+            numOfSeats--
+        }
+        // Update the text view only if it's the first interaction or on subsequent valid presses
+        if (numOfSeatsText.text.toString() == getString(R.string.num_of_seats_text) || numOfSeats >= 0) {
+            numOfSeatsText.text = numOfSeats.toString()
         }
     }
 }
