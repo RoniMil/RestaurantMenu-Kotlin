@@ -1,10 +1,11 @@
 package com.example.midtermdrill
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.app.AlertDialog
 import android.os.Bundle
 
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.view.MotionEvent
 import java.util.*
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +17,9 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.core.widget.NestedScrollView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 
@@ -46,6 +47,9 @@ class MainActivity : AppCompatActivity() {
 
     // counter for the number of seats selected, initialized to 0
     private var numOfSeats = 0
+
+    // var for keeping track of vegan selection, initalized to false
+    private var isVegan = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -219,7 +223,7 @@ class MainActivity : AppCompatActivity() {
 
         // setup listener for vegan selection button
         veganButton.setOnClickListener {
-
+            toggleVeganButton()
         }
 
 
@@ -255,10 +259,10 @@ class MainActivity : AppCompatActivity() {
         nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             // show simple pop up to inform the user they reached the top or the bottom depending on the location
             if (scrollY == 0 && !v.canScrollVertically(-1)) {
-                Toast.makeText(this, "Reached the top", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.top_of_page_text, Toast.LENGTH_SHORT).show()
             }
             if (!v.canScrollVertically(1)) {
-                Toast.makeText(this, "Reached the bottom", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.bottom_of_page_text, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -364,5 +368,51 @@ class MainActivity : AppCompatActivity() {
         if (numOfSeatsText.text.toString() == getString(R.string.num_of_seats_text) || numOfSeats >= 0) {
             numOfSeatsText.text = numOfSeats.toString()
         }
+    }
+
+    // method responsible for handling vegan button toggle
+    private fun toggleVeganButton(){
+        // flip value after toggled
+        isVegan = !isVegan
+        applyColorTransition(veganButton, isVegan)
+    }
+
+    // animate and apply the color changes triggered by clicking the vegan button
+    private fun applyColorTransition(button: MaterialButton, toggled: Boolean) {
+        /*
+         Get color values of button color:
+          if toggled off: go from green to gray
+          if toggled on: go from gray to green
+         */
+        val buttonColorFrom = if (toggled) ContextCompat.getColor(this, R.color.light_gray) else ContextCompat.getColor(this, R.color.green)
+        val buttonColorTo = if (toggled) ContextCompat.getColor(this, R.color.green) else ContextCompat.getColor(this, R.color.light_gray)
+
+        /*
+          Get color values of text color:
+          if toggled off: go from white to black
+          if toggled on: go from black to white
+        */
+        val textColorFrom = if (toggled) ContextCompat.getColor(this, R.color.black) else ContextCompat.getColor(this, R.color.white)
+        val textColorTo = if (toggled) ContextCompat.getColor(this, R.color.white) else ContextCompat.getColor(this, R.color.black)
+
+        // Animate background color
+        val backgroundColorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), buttonColorFrom, buttonColorTo)
+        backgroundColorAnimation.duration = 200  // Duration of the color transition
+        backgroundColorAnimation.addUpdateListener { animator ->
+            button.setBackgroundColor(animator.animatedValue as Int) // Update background color
+        }
+
+        // Animate text and icon color
+        val textColorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), textColorFrom, textColorTo)
+        textColorAnimation.duration = 200  // Duration of the color transition
+        textColorAnimation.addUpdateListener { animator ->
+            val color = animator.animatedValue as Int // set color for use for both text and icon colors
+            button.setTextColor(animator.animatedValue as Int) // update text color
+            button.iconTint = android.content.res.ColorStateList.valueOf(color) // update icon color
+        }
+
+        // Start both animations
+        backgroundColorAnimation.start()
+        textColorAnimation.start()
     }
 }
