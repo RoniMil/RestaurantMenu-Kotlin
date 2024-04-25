@@ -230,24 +230,53 @@ class MainActivity : AppCompatActivity() {
         // setup listener for reserve seats button
     }
 
-    // this method will apply the button scale down animation on touch for all buttons
+    // this method will apply the button animations on touch for the buttons
     private fun applyAnimationToButtons() {
         val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.button_scale_down)
-        // create the listener
+        // define colors for color pulse animation
+        val originalColor = ContextCompat.getColor(this, R.color.light_gray)
+        val pulseColor = ContextCompat.getColor(this, R.color.dark_gray)
+
         val touchListener = View.OnTouchListener { v, event ->
-            // if a button is pressed start playing the animation
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                v.startAnimation(buttonAnimation)
-                // trigger any OnClickListeners for the pressed button
-                v.performClick()
-                // mark event as handled
-                return@OnTouchListener true
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // start scale animation for all buttons
+                    v.startAnimation(buttonAnimation)
+
+                    // check if the current button is not the veganButton or reserveSeatsButton
+                    if (v != veganButton && v != reserveSeatsButton) {
+                        // start color pulse animation for the rest of the buttons
+                        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), originalColor, pulseColor).apply {
+                            duration = 200
+                            addUpdateListener { animator ->
+                                (v as? MaterialButton)?.setBackgroundColor(animator.animatedValue as Int)
+                            }
+                            start()
+                        }
+                    }
+
+                    // Perform the button's click action
+                    v.performClick()
+                    return@OnTouchListener true
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    if (v != veganButton && v != reserveSeatsButton) {
+                        // reverse the color animation to original on button release
+                        ValueAnimator.ofObject(ArgbEvaluator(), pulseColor, originalColor).apply {
+                            duration = 200
+                            addUpdateListener { animator ->
+                                (v as? MaterialButton)?.setBackgroundColor(animator.animatedValue as Int)
+                            }
+                            start()
+                        }
+                    }
+                }
             }
-            // otherwise, ignore
+            // ignore other actions
             false
         }
 
-        // apply touch listener to all buttons
+        // Apply the touch listener to all buttons
         listOf(languageButton, foodButton, drinksButton, increaseButton, decreaseButton, paymentButton, timeButton, veganButton, reserveSeatsButton).forEach {
             it.setOnTouchListener(touchListener)
         }
