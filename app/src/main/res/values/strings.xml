@@ -52,7 +52,9 @@
     <string name="pina_colada_name">Piña Colada</string>
     <string name="pina_colada_desc">A creamy blend of coconut cream, pineapple juice, and white rum, served in a tall glass and garnished with a slice of pineapple and a cherry.</string>
 
-
+    <string name="dialog_language_select">Select language</string>
+    <string name="dialog_accept">Accept</string>
+    <string name="dialog_cancel">Cancel</string>
 
 
 </resources>

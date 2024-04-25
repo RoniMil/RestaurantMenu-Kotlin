@@ -5,16 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:gravity="start"
+    >
 
     <RadioGroup
         android:id="@+id/radioGroupLanguages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:background="@color/light_gray"
-
+        android:gravity="start"
+        android:background="@color/white"
         android:padding="24dp">
 
         <RadioButton

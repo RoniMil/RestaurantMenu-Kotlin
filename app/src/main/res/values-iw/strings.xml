@@ -51,4 +51,8 @@
     <string name="pina_colada_name">פינה קולדה</string>
     <string name="pina_colada_desc">קוקטייל מרענן המשלב קרם קוקוס, מיץ אננס ורום לבן. מוגש בכוס גבוהה ומעוטר בפרוסת אננס ודובדבן.</string>
 
+    <string name="dialog_language_select">בחר שפה</string>
+    <string name="dialog_accept">אישור</string>
+    <string name="dialog_cancel">ביטול</string>
+
 </resources>

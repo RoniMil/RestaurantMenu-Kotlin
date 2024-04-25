@@ -1,7 +1,11 @@
 package com.example.midtermdrill
 
+import android.app.AlertDialog
 import android.os.Bundle
 
+import android.content.res.Configuration
+import android.content.res.Resources
+import java.util.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button
@@ -10,11 +14,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.core.widget.NestedScrollView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
-
 
 
 // Main activity class
@@ -40,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     // counter for the number of seats selected, initialized to 0
     private var numOfSeats = 0
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,22 +93,72 @@ class MainActivity : AppCompatActivity() {
     }
 
     // create food menu items and return them in a list
-    private fun setupFood() : List<MenuItem> {
-        val chickenWings = MenuItem(getString(R.string.fried_chicken_wings_name), "₪35", getString(R.string.fried_chicken_wings_desc), R.drawable.fried_chicken_wings.toString())
-        val greekSalad = MenuItem(getString(R.string.greek_salad_name), "₪40", getString(R.string.greek_salad_desc), R.drawable.greek_salad.toString())
-        val burgers = MenuItem(getString(R.string.mini_burger_trio_name), "₪45", getString(R.string.mini_burger_trio_desc), R.drawable.mini_burger_trio.toString())
-        val pizza = MenuItem(getString(R.string.pizza_margherita_name), "₪50", getString(R.string.pizza_margherita_desc), R.drawable.pizza_margherita.toString())
-        val springRolls = MenuItem(getString(R.string.spring_rolls_name), "₪35", getString(R.string.spring_rolls_desc), R.drawable.spring_rolls.toString())
+    private fun setupFood(): List<MenuItem> {
+        val chickenWings = MenuItem(
+            getString(R.string.fried_chicken_wings_name),
+            "₪35",
+            getString(R.string.fried_chicken_wings_desc),
+            R.drawable.fried_chicken_wings.toString()
+        )
+        val greekSalad = MenuItem(
+            getString(R.string.greek_salad_name),
+            "₪40",
+            getString(R.string.greek_salad_desc),
+            R.drawable.greek_salad.toString()
+        )
+        val burgers = MenuItem(
+            getString(R.string.mini_burger_trio_name),
+            "₪45",
+            getString(R.string.mini_burger_trio_desc),
+            R.drawable.mini_burger_trio.toString()
+        )
+        val pizza = MenuItem(
+            getString(R.string.pizza_margherita_name),
+            "₪50",
+            getString(R.string.pizza_margherita_desc),
+            R.drawable.pizza_margherita.toString()
+        )
+        val springRolls = MenuItem(
+            getString(R.string.spring_rolls_name),
+            "₪35",
+            getString(R.string.spring_rolls_desc),
+            R.drawable.spring_rolls.toString()
+        )
         return listOf(chickenWings, greekSalad, burgers, pizza, springRolls)
     }
 
     // create drinks menu items and return them im a list
-    private fun setupDrinks() : List<MenuItem> {
-        val beer = MenuItem(getString(R.string.beer_name), "₪25", getString(R.string.beer_desc), R.drawable.beer.toString())
-        val daiquiri = MenuItem(getString(R.string.daiquiri_name), "₪35", getString(R.string.daiquiri_desc), R.drawable.daiquiri.toString())
-        val margarita = MenuItem(getString(R.string.margarita_name), "₪40", getString(R.string.mini_burger_trio_desc), R.drawable.margarita.toString())
-        val moscowMule = MenuItem(getString(R.string.moscow_mule_name), "₪35", getString(R.string.moscow_mule_desc), R.drawable.moscow_mule.toString())
-        val pinaColada = MenuItem(getString(R.string.pina_colada_name), "₪40", getString(R.string.pina_colada_desc), R.drawable.pina_colada.toString())
+    private fun setupDrinks(): List<MenuItem> {
+        val beer = MenuItem(
+            getString(R.string.beer_name),
+            "₪25",
+            getString(R.string.beer_desc),
+            R.drawable.beer.toString()
+        )
+        val daiquiri = MenuItem(
+            getString(R.string.daiquiri_name),
+            "₪35",
+            getString(R.string.daiquiri_desc),
+            R.drawable.daiquiri.toString()
+        )
+        val margarita = MenuItem(
+            getString(R.string.margarita_name),
+            "₪40",
+            getString(R.string.mini_burger_trio_desc),
+            R.drawable.margarita.toString()
+        )
+        val moscowMule = MenuItem(
+            getString(R.string.moscow_mule_name),
+            "₪35",
+            getString(R.string.moscow_mule_desc),
+            R.drawable.moscow_mule.toString()
+        )
+        val pinaColada = MenuItem(
+            getString(R.string.pina_colada_name),
+            "₪40",
+            getString(R.string.pina_colada_desc),
+            R.drawable.pina_colada.toString()
+        )
         return listOf(beer, daiquiri, margarita, moscowMule, pinaColada)
     }
 
@@ -126,13 +180,13 @@ class MainActivity : AppCompatActivity() {
         recyclerViewDrinks.layoutManager = LinearLayoutManager(this)
 
 
-
     }
 
     private fun setupListeners() {
         // Setup listener for the language button to open change language dialogue on click
-
-
+        languageButton.setOnClickListener {
+            showLanguageDialog()
+        }
 
         // Setup listeners for the food and drinks buttons to toggle section display/hiding on click
         foodButton.setOnClickListener {
@@ -178,6 +232,64 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // this method is responsible for showing the dialog for changing languages
+    private fun showLanguageDialog() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.language_change_dialog, null)
+        builder.setView(dialogView)
+
+        // set the title of the dialog according to the current language
+        builder.setTitle(R.string.dialog_language_select)
+
+        val radioButtonEnglish = dialogView.findViewById<RadioButton>(R.id.radioButtonEnglish)
+        val radioButtonHebrew = dialogView.findViewById<RadioButton>(R.id.radioButtonHebrew)
+
+        // Check current locale and set buttons according to the user selection
+        val currentLocale = Locale.getDefault().language
+        if (currentLocale.equals("iw", ignoreCase = true) || currentLocale.equals(
+                "he", ignoreCase = true
+            )
+        ) {
+            radioButtonHebrew.isChecked = true
+        } else {
+            radioButtonEnglish.isChecked = true
+        }
+
+        // change language if user confirmed selection
+        builder.setPositiveButton(R.string.dialog_accept) { dialog, _ ->
+            if (radioButtonEnglish.isChecked) {
+                setLocale("en")
+            } else {
+                setLocale("iw")
+            }
+            dialog.dismiss()
+        }
+        // if user canceled selection don't do anything
+        builder.setNegativeButton(R.string.dialog_cancel) { dialog, _ -> dialog.dismiss() }
+
+        // present dialog
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
+    // this method is responsible for changing the language displayed in the app
+    private fun setLocale(language: String) {
+        val currentLocale = Locale.getDefault().language
+        // changes to the language if the current language is different
+        if (!currentLocale.equals(language, ignoreCase = true)) {
+            val locale = Locale(language)
+            Locale.setDefault(locale)
+            val config = Configuration()
+            config.setLocale(locale)
+            resources.updateConfiguration(config, resources.displayMetrics)
+
+            // refresh the activity to apply the new locale
+            recreate()
+        }
+    }
+
 
     // Helper function to toggle the visibility of the RecyclerView sections for food and drinks
     private fun toggleSection(recyclerView: RecyclerView, button: MaterialButton) {
@@ -192,7 +304,7 @@ class MainActivity : AppCompatActivity() {
             recyclerView.startAnimation(slideUp)
             button.setIconResource(R.drawable.arrow_downward)
 
-        // otherwise, the section is currently hidden - make it expand, change button icon to collapse
+            // otherwise, the section is currently hidden - make it expand, change button icon to collapse
         } else {
 
             val slideDown = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slide_down)
@@ -206,6 +318,7 @@ class MainActivity : AppCompatActivity() {
             button.setIconResource(R.drawable.arrow_upward)
         }
     }
+
 
     // Updates the number of seats according to which button was pressed - increase/decrease
     private fun handleSeatChange(increment: Boolean) {
