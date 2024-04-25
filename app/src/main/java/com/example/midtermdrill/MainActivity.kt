@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity() {
 
     // this method will apply the button scale down animation on touch for all buttons
     private fun applyAnimationToButtons() {
-        val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)
+        val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.button_scale_down)
         // create the listener
         val touchListener = View.OnTouchListener { v, event ->
             // if a button is pressed start playing the animation
@@ -303,8 +303,10 @@ class MainActivity : AppCompatActivity() {
         // if user canceled selection don't do anything
         builder.setNegativeButton(R.string.dialog_cancel) { dialog, _ -> dialog.dismiss() }
 
-        // present dialog
+        // present dialog with animations
         val dialog = builder.create()
+        dialog.setContentView(R.layout.activity_main)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
     }
 
