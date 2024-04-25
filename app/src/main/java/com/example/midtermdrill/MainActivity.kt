@@ -8,10 +8,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.core.widget.NestedScrollView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+
 
 
 // Main activity class
@@ -129,7 +132,14 @@ class MainActivity : AppCompatActivity() {
             toggleSection(recyclerViewDrinks, drinksButton)
         }
 
-        // Setup listener for the number of seats increase and decrease buttons
+//        // Setup listener for the number of seats increase and decrease buttons
+//        increaseButton.setOnClickListener {
+//
+//        }
+//
+//        decreaseButton.setOnClickListener {
+//
+//        }
 
 
         // Setup listener for payment method button
@@ -162,11 +172,26 @@ class MainActivity : AppCompatActivity() {
     private fun toggleSection(recyclerView: RecyclerView, button: MaterialButton) {
         // if the section is currently expanded - make it collapse, change button icon to expand
         if (recyclerView.visibility == View.VISIBLE) {
-            recyclerView.visibility = View.GONE
+            val slideUp = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slide_up)
+            slideUp.setAnimationListener(object : SimpleAnimationListener() {
+                override fun onAnimationEnd(animation: Animation?) {
+                    recyclerView.visibility = View.GONE
+                }
+            })
+            recyclerView.startAnimation(slideUp)
             button.setIconResource(R.drawable.arrow_downward)
+
         // otherwise, the section is currently hidden - make it expand, change button icon to collapse
         } else {
-            recyclerView.visibility = View.VISIBLE
+
+            val slideDown = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slide_down)
+            slideDown.setAnimationListener(object : SimpleAnimationListener() {
+                override fun onAnimationStart(animation: Animation?) {
+                    recyclerView.visibility = View.VISIBLE
+                }
+            })
+
+            recyclerView.startAnimation(slideDown)
             button.setIconResource(R.drawable.arrow_upward)
         }
     }
