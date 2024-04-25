@@ -112,7 +112,7 @@
             android:id="@+id/reserveSeatsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="@string/reserve_btn_text"
             android:textSize="15sp"
@@ -185,10 +185,11 @@
         <Button
             android:id="@+id/paymentButton"
             style="@style/CustomButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="12dp"
+            android:minWidth="120dp"
             android:text="@string/payment_method_text"
             app:icon="@drawable/payment_icon"
             app:iconGravity="textStart"
@@ -196,7 +197,7 @@
             app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/timeButton"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Time select button -->
@@ -208,6 +209,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="12dp"
+            android:minWidth="120dp"
             android:text="@string/time_text"
             app:icon="@drawable/time_icon"
             app:iconGravity="textStart"
@@ -224,6 +226,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_marginBottom="12dp"
+            android:minWidth="120dp"
             android:text="@string/vegan_text"
             app:icon="@drawable/vegan_icon"
             app:iconGravity="textStart"

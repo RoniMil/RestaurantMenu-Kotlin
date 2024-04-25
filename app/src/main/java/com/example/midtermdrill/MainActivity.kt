@@ -144,15 +144,11 @@ class MainActivity : AppCompatActivity() {
         // setup listener for reserve seats button
     }
 
+    // listener for the scroll view
     private fun setupScrollView() {
-        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY > oldScrollY) {
-                Toast.makeText(this, "Scrolling down", Toast.LENGTH_SHORT).show()
-            }
-            if (scrollY < oldScrollY) {
-                Toast.makeText(this, "Scrolling up", Toast.LENGTH_SHORT).show()
-            }
-            if (scrollY == 0) {
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            // show simple pop up to inform the user they reached the top or the bottom depending on the location
+            if (scrollY == 0 && !v.canScrollVertically(-1)) {
                 Toast.makeText(this, "Reached the top", Toast.LENGTH_SHORT).show()
             }
             if (!v.canScrollVertically(1)) {
@@ -160,6 +156,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 
     // Helper function to toggle the visibility of the RecyclerView sections for food and drinks
     private fun toggleSection(recyclerView: RecyclerView, button: MaterialButton) {
