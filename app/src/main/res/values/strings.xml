@@ -56,5 +56,10 @@
     <string name="dialog_accept">Accept</string>
     <string name="dialog_cancel">Cancel</string>
 
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+    <string name="reservation_title">Reservation</string>
+
 
 </resources>

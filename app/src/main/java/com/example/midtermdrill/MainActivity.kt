@@ -5,6 +5,7 @@ import android.os.Bundle
 
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.view.MotionEvent
 import java.util.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +71,9 @@ class MainActivity : AppCompatActivity() {
 
         // Setup click listeners for interaction
         setupListeners()
+
+        // Apply the animations for all buttons
+        applyAnimationToButtons()
     }
 
     private fun initViews() {
@@ -214,10 +218,37 @@ class MainActivity : AppCompatActivity() {
 
 
         // setup listener for vegan selection button
+        veganButton.setOnClickListener {
+
+        }
 
 
         // setup listener for reserve seats button
     }
+
+    // this method will apply the button scale down animation on touch for all buttons
+    private fun applyAnimationToButtons() {
+        val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)
+        // create the listener
+        val touchListener = View.OnTouchListener { v, event ->
+            // if a button is pressed start playing the animation
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                v.startAnimation(buttonAnimation)
+                // trigger any OnClickListeners for the pressed button
+                v.performClick()
+                // mark event as handled
+                return@OnTouchListener true
+            }
+            // otherwise, ignore
+            false
+        }
+
+        // apply touch listener to all buttons
+        listOf(languageButton, foodButton, drinksButton, increaseButton, decreaseButton, paymentButton, timeButton, veganButton, reserveSeatsButton).forEach {
+            it.setOnTouchListener(touchListener)
+        }
+    }
+
 
     // listener for the scroll view
     private fun setupScrollView() {
