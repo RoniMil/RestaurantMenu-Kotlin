@@ -73,9 +73,11 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
 
-    <string name="reservation_title">Reservation</string>
-    <string name="reservation_time_error">You must choose a time</string>
-    <string name="reservation_payment_method_error">You must choose a payment method</string>
+    <string name="reservation_title">Reservation details</string>
+    <!-- string prepared for positional arguments -->
+    <string name="reservation_details">Seats: %1$d.\nTime: %2$s.\nPayment method: %3$s.\nVegan: %4$s.</string>
+    <string name="reservation_error">You must fill all reservation details before proceeding.</string>
+    <string name="reservation_saved">Reservation made successfully!</string>
 
 
 </resources>

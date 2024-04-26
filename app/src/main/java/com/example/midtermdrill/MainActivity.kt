@@ -237,8 +237,10 @@ class MainActivity : AppCompatActivity() {
             toggleVeganButton()
         }
 
-
         // setup listener for reserve seats button
+        reserveSeatsButton.setOnClickListener {
+            showConfirmReservationDialog()
+        }
     }
 
     // this method will apply the button animations on touch for the buttons
@@ -458,13 +460,14 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    // this method is responsible for displaying the dialog for the time selection picker
+    // this method is responsible for displaying the dialog for the time selection button
     private fun showPaymentMethodDialog() {
         // get payment methods array
         val paymentMethods = resources.getStringArray(R.array.payment_methods)
 
         // set up an ArrayAdapter to handle the display of payment methods in a ListView
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, paymentMethods)
+        val adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, paymentMethods)
 
         // init list and adapter
         val listView = ListView(this).apply {
@@ -494,6 +497,44 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    // this method is responsible for displaying the dialog for the reserve seats button
+    private fun showConfirmReservationDialog() {
+        // if one or more details are missing (set to default) display the user with an error message prompting them to fill in the missing details
+        if (numOfSeats == 0 || reservationTime.isEmpty() || reservationPaymentMethod.isEmpty()) {
+            val error = getString(R.string.reservation_error)
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // if all details are in place, prepare reservationDetails string with the details filled in by the user and saved in the global vars
+        val reservationDetails = getString(
+            R.string.reservation_details,
+            numOfSeats,
+            reservationTime,
+            reservationPaymentMethod,
+            if (isVegan) getString(R.string.yes) else getString(R.string.no)
+        )
+        // create dialog for displaying reservationDetails
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(getString(R.string.reservation_title))
+            .setMessage(reservationDetails)
+            // if user clicked accept display success message
+            .setPositiveButton(getString(R.string.dialog_accept)) { _, _ ->
+                Toast.makeText(this, getString(R.string.reservation_saved), Toast.LENGTH_LONG)
+                    .show()
+            }
+            // if user clicked cancel do nothing
+            .setNegativeButton(getString(R.string.dialog_cancel)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .create()
+
+        // present dialog with animations
+        dialog.setContentView(R.layout.activity_main)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.show()
+
+    }
 
 
     // Helper function to toggle the visibility of the RecyclerView sections for food and drinks

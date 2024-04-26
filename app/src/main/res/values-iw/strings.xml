@@ -72,8 +72,10 @@
     <string name="yes">כן</string>
     <string name="no">לא</string>
 
-    <string name="reservation_title">הזמנה</string>
-    <string name="reservation_time_error">עליך לבחור שעה</string>
-    <string name="reservation_payment_method_error">עליך לבחור שיטת תשלום</string>
+    <string name="reservation_title">פרטי הזמנה</string>
+    <!-- string prepared for positional arguments -->
+    <string name="reservation_details">מקומות: %1$d.\nשעה: %2$s.\nשיטת תשלום: %3$s.\nטבעוני: %4$s.</string>
+    <string name="reservation_error">עליך למלא את כל פרטי ההזמנה לפני שתוכל להזמין.</string>
+    <string name="reservation_saved">ההזמנה בוצעה בהצלחה!</string>
 
 </resources>
