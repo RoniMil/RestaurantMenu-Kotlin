@@ -1,221 +1,246 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Portrait view layout -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portrait view layout -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
-
-    <!-- Menu title -->
-    <TextView
-        android:id="@+id/menuTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/menu_text"
-        android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!-- Language selection button -->
-    <Button
-        android:id="@+id/languageButton"
-        style="@style/CustomButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/lang"
-        android:textSize="11sp"
-        app:icon="@drawable/lang_icon"
-        app:iconGravity="textStart"
-        app:iconTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/menuTitle"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    android:fadeScrollbars="false"
+    android:fillViewport="true"
+    android:scrollbars="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/menuTitle"
-        app:layout_constraintBottom_toTopOf="@id/numOfSeats" >
-
-        <!-- Food Section Toggle Button -->
-        <Button
-            android:id="@+id/foodButton"
-            style="@style/CustomButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/food_section_title"
-            app:icon="@drawable/arrow_upward"
-            app:iconGravity="end"
-            app:iconTint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewFood"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/foodButton"
-            android:visibility="visible" />
-
-        <!-- Drinks Section Toggle Button -->
-        <Button
-            android:id="@+id/drinksButton"
-            style="@style/CustomButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/drinks_section_title"
-            app:icon="@drawable/arrow_upward"
-            app:iconGravity="end"
-            app:iconTint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerViewFood"
-            tools:ignore="HardcodedText" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewDrinks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/drinksButton"
-            android:visibility="visible"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Reserve seats button -->
-    <Button
-        android:id="@+id/reserveSeatsButton"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:gravity="center"
-        android:text="@string/reserve_btn_text"
-        android:textSize="15sp"
-        app:backgroundTint="@color/purple_500"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:padding="10dp">
 
-    <!-- Seat selection button -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/numOfSeats"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/seat_selector_outline"
-        app:layout_constraintBottom_toTopOf="@id/paymentButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Decrease seat number Button -->
-        <Button
-            android:id="@+id/decreaseButton"
-            style="@style/CustomButton"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="-"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@id/numOfSeatsText"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
-
-        <!-- Number of selected seats display -->
+        <!-- Menu title -->
         <TextView
-            android:id="@+id/numOfSeatsText"
+            android:id="@+id/menuTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@string/num_of_seats_text"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/increaseButton"
-            app:layout_constraintStart_toEndOf="@id/decreaseButton"
+            android:text="@string/menu_text"
+            android:textSize="35sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Increase seat number button -->
-        <Button
-            android:id="@+id/increaseButton"
-            style="@style/CustomButton"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="+"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/numOfSeatsText"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
 
+        <!-- Language selection button -->
+        <Button
+            android:id="@+id/languageButton"
+            style="@style/CustomButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="1dp"
+            android:text="@string/lang"
+            android:textSize="11sp"
+            app:icon="@drawable/lang_icon"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/menuTitle"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/numOfSeats"
+            app:layout_constraintTop_toBottomOf="@id/menuTitle">
+
+            <!-- Food Section Toggle Button -->
+            <Button
+                android:id="@+id/foodButton"
+                style="@style/CustomButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/food_section_title"
+                app:icon="@drawable/arrow_downward"
+                app:iconGravity="end"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/drinksButton"
+                app:layout_constraintTop_toBottomOf="@id/foodButton" />
+
+            <!-- Drinks Section Toggle Button -->
+            <Button
+                android:id="@+id/drinksButton"
+                style="@style/CustomButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/drinks_section_title"
+                app:icon="@drawable/arrow_downward"
+                app:iconGravity="end"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewFood"
+                tools:ignore="HardcodedText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewDrinks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/drinksButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Reserve seats button -->
+        <Button
+            android:id="@+id/reserveSeatsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/reserve_btn_text"
+            android:textSize="15sp"
+            app:backgroundTint="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Seat selection button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/numOfSeats"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/seat_selector_outline"
+            android:layoutDirection="ltr"
+            app:layout_constraintBottom_toTopOf="@id/paymentButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- Decrease seat number Button -->
+            <Button
+                android:id="@+id/decreaseButton"
+                style="@style/CustomButton"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="-"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@id/numOfSeatsText"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <!-- Number of selected seats display -->
+            <TextView
+                android:id="@+id/numOfSeatsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/num_of_seats_text"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/increaseButton"
+                app:layout_constraintStart_toEndOf="@id/decreaseButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Increase seat number button -->
+            <Button
+                android:id="@+id/increaseButton"
+                style="@style/CustomButton"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="+"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/numOfSeatsText"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Payment method selection button -->
+        <Button
+            android:id="@+id/paymentButton"
+            style="@style/CustomButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="12dp"
+            android:minWidth="110dp"
+            android:text="@string/payment_method_text"
+            app:icon="@drawable/payment_icon"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
+            app:layout_constraintEnd_toStartOf="@id/timeButton"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="wrap" />
+
+        <!-- Time select button -->
+        <Button
+            android:id="@+id/timeButton"
+            style="@style/CustomButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="12dp"
+            android:minWidth="110dp"
+            android:text="@string/time_text"
+            app:icon="@drawable/time_icon"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
+            app:layout_constraintEnd_toStartOf="@+id/veganButton"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/paymentButton"
+            app:layout_constraintWidth_default="wrap"
+            />
+
+        <!-- Vegan selection button -->
+        <Button
+            android:id="@+id/veganButton"
+            style="@style/CustomButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="12dp"
+            android:minWidth="110dp"
+            android:text="@string/vegan_text"
+            app:icon="@drawable/vegan_icon"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/timeButton"
+            app:layout_constraintWidth_default="wrap" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Payment method selection button -->
-    <Button
-        android:id="@+id/paymentButton"
-        style="@style/CustomButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/payment_method_text"
-        app:icon="@drawable/payment_icon"
-        app:iconGravity="textStart"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
-        app:layout_constraintEnd_toStartOf="@id/timeButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed" />
-
-    <!-- Time select button -->
-    <Button
-        android:id="@+id/timeButton"
-        style="@style/CustomButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/time_text"
-        app:icon="@drawable/time_icon"
-        app:iconGravity="textStart"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
-        app:layout_constraintEnd_toStartOf="@+id/veganButton"
-        app:layout_constraintStart_toEndOf="@+id/paymentButton" />
-
-    <!-- Vegan selection button -->
-    <Button
-        android:id="@+id/veganButton"
-        style="@style/CustomButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/vegan_text"
-        app:icon="@drawable/vegan_icon"
-        app:iconGravity="textStart"
-        app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
-        app:layout_constraintStart_toEndOf="@id/timeButton"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
