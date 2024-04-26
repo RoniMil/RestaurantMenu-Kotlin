@@ -15,6 +15,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.NumberPicker
 import android.widget.RadioButton
 import androidx.core.widget.NestedScrollView
@@ -53,6 +55,9 @@ class MainActivity : AppCompatActivity() {
 
     // var for keeping track of user time slot selection, init to empty
     private var reservationTime = ""
+
+    // var for keeping track of user payment method selection, init to empty
+    private var reservationPaymentMethod = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -217,7 +222,9 @@ class MainActivity : AppCompatActivity() {
 
 
         // Setup listener for payment method button
-
+        paymentButton.setOnClickListener {
+            showPaymentMethodDialog()
+        }
 
         // setup listener for time selection button
         timeButton.setOnClickListener {
@@ -450,6 +457,44 @@ class MainActivity : AppCompatActivity() {
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
     }
+
+    // this method is responsible for displaying the dialog for the time selection picker
+    private fun showPaymentMethodDialog() {
+        // get payment methods array
+        val paymentMethods = resources.getStringArray(R.array.payment_methods)
+
+        // set up an ArrayAdapter to handle the display of payment methods in a ListView
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, paymentMethods)
+
+        // init list and adapter
+        val listView = ListView(this).apply {
+            setAdapter(adapter)
+        }
+
+        // create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.select_payment_method)
+            .setView(listView)
+            .create()
+
+        /*
+         list view listener to handle user selection
+         selection is saved to the global reservationPaymentMethod var and is written on the payment button
+         afterward, dismiss dialog
+         */
+        listView.setOnItemClickListener { _, _, position, _ ->
+            reservationPaymentMethod = paymentMethods[position]
+            paymentButton.text = reservationPaymentMethod
+            dialog.dismiss()
+        }
+
+        // present dialog with animations
+        dialog.setContentView(R.layout.activity_main)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.show()
+    }
+
+
 
     // Helper function to toggle the visibility of the RecyclerView sections for food and drinks
     private fun toggleSection(recyclerView: RecyclerView, button: MaterialButton) {
