@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity() {
 
     // this method will apply the button animations on touch for the buttons
     private fun applyAnimationToButtons() {
-        val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.button_scale_down)
+        val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.button_bounce)
         // define colors for color pulse animation
         val originalColor = ContextCompat.getColor(this, R.color.light_gray)
         val pulseColor = ContextCompat.getColor(this, R.color.dark_gray)
@@ -240,13 +240,13 @@ class MainActivity : AppCompatActivity() {
         val touchListener = View.OnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    // start scale animation for all buttons
+                    // enable bounce animation for all buttons
                     v.startAnimation(buttonAnimation)
 
                     // check if the current button is not the veganButton or reserveSeatsButton
                     if (v != veganButton && v != reserveSeatsButton) {
                         // start color pulse animation for the rest of the buttons
-                        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), originalColor, pulseColor).apply {
+                        ValueAnimator.ofObject(ArgbEvaluator(), originalColor, pulseColor).apply {
                             duration = 200
                             addUpdateListener { animator ->
                                 (v as? MaterialButton)?.setBackgroundColor(animator.animatedValue as Int)
@@ -361,26 +361,11 @@ class MainActivity : AppCompatActivity() {
     private fun toggleSection(recyclerView: RecyclerView, button: MaterialButton) {
         // if the section is currently expanded - make it collapse, change button icon to expand
         if (recyclerView.visibility == View.VISIBLE) {
-            val slideUp = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slide_up)
-            slideUp.setAnimationListener(object : SimpleAnimationListener() {
-                override fun onAnimationEnd(animation: Animation?) {
-                    recyclerView.visibility = View.GONE
-                }
-            })
-            recyclerView.startAnimation(slideUp)
+            recyclerView.visibility = View.GONE
             button.setIconResource(R.drawable.arrow_downward)
-
             // otherwise, the section is currently hidden - make it expand, change button icon to collapse
         } else {
-
-            val slideDown = AnimationUtils.loadAnimation(recyclerView.context, R.anim.slide_down)
-            slideDown.setAnimationListener(object : SimpleAnimationListener() {
-                override fun onAnimationStart(animation: Animation?) {
-                    recyclerView.visibility = View.VISIBLE
-                }
-            })
-
-            recyclerView.startAnimation(slideDown)
+            recyclerView.visibility = View.VISIBLE
             button.setIconResource(R.drawable.arrow_upward)
         }
     }
