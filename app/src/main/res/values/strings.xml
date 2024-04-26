@@ -63,6 +63,8 @@
     <string name="no">no</string>
 
     <string name="reservation_title">Reservation</string>
+    <string name="reservation_time_error">You must choose a time</string>
+    <string name="reservation_payment_method_error">You must choose a payment method</string>
 
 
 </resources>

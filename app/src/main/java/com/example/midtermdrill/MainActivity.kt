@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.NumberPicker
 import android.widget.RadioButton
 import androidx.core.widget.NestedScrollView
 import android.widget.Toast
@@ -50,6 +51,8 @@ class MainActivity : AppCompatActivity() {
     // var for keeping track of vegan selection, initalized to false
     private var isVegan = false
 
+    // var for keeping track of user time slot selection, init to empty
+    private var reservationTime = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             val width = numOfSeatsText.width
             numOfSeatsText.minWidth = width
         }
-
 
         // Initialize adapters
         initAdapters()
@@ -218,6 +220,9 @@ class MainActivity : AppCompatActivity() {
 
 
         // setup listener for time selection button
+        timeButton.setOnClickListener {
+            showTimeSelectionDialog()
+        }
 
 
         // setup listener for vegan selection button
@@ -258,6 +263,7 @@ class MainActivity : AppCompatActivity() {
                     v.performClick()
                     return@OnTouchListener true
                 }
+
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     if (v != veganButton && v != reserveSeatsButton) {
                         // reverse the color animation to original on button release
@@ -276,7 +282,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Apply the touch listener to all buttons
-        listOf(languageButton, foodButton, drinksButton, increaseButton, decreaseButton, paymentButton, timeButton, veganButton, reserveSeatsButton).forEach {
+        listOf(
+            languageButton,
+            foodButton,
+            drinksButton,
+            increaseButton,
+            decreaseButton,
+            paymentButton,
+            timeButton,
+            veganButton,
+            reserveSeatsButton
+        ).forEach {
             it.setOnTouchListener(touchListener)
         }
     }
@@ -355,6 +371,85 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // this method is responsible for displaying the dialog for the time selection picker
+    private fun showTimeSelectionDialog() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.time_selection_dialog, null)
+        builder.setView(dialogView)
+
+        // get reference to the time picker
+        val picker: NumberPicker = dialogView.findViewById(R.id.timePicker)
+
+        // set the title of the dialog according to the current language
+        builder.setTitle(R.string.time_text)
+
+        // Function to generate time slots for use in the time picker within the dialog
+        val generateTimeSlots = { startTime: String, endTime: String, interval: Int ->
+            // This list will hold the generated time slots
+            val resultList = mutableListOf<String>()
+            // Parse starting and ending times from the input
+            var hour = startTime.substringBefore(":").toInt()
+            var minute = startTime.substringAfter(":").toInt()
+            val endHour =
+                if (endTime.substringBefore(":").toInt() == 1) 25 else endTime.substringBefore(":")
+                    .toInt() // Adjust for times past midnight
+            val endMinute = endTime.substringAfter(":").toInt()
+
+            // Continue generating time slots in 15 minute intervals until we reach the end hour
+            while (hour < endHour || (hour == endHour && minute <= endMinute)) {
+                resultList.add(
+                    String.format(
+                        "%02d:%02d",
+                        if (hour < 24) hour else hour - 24,
+                        minute
+                    )
+                )
+                minute += interval
+                // Hour calculation
+                if (minute >= 60) {
+                    hour += minute / 60
+                    minute %= 60
+                }
+            }
+            resultList.toTypedArray()
+        }
+
+        // Array to hold the time slots, generate time slots in 15 mins intervals from 18pm to 1am
+        val times = generateTimeSlots("18:00", "01:00", 15)
+        picker.minValue = 0
+        picker.maxValue = times.size - 1
+        picker.displayedValues = times
+        picker.wrapSelectorWheel = false
+
+        // init temp selectedTime variable as the first timeslot for the case where user doesn't scroll
+        var selectedTime = times[0]
+
+        // Set time picker listener to save selected time in the local selectedTime var
+        picker.setOnValueChangedListener { _, _, newVal ->
+            selectedTime = times[newVal]
+        }
+
+        // event handling for user pressing accept button
+        builder.setPositiveButton(R.string.dialog_accept) { dialog, _ ->
+            // change the global reservationTime var and text on the time button to the selected hour
+            reservationTime = selectedTime
+            timeButton.text = reservationTime
+            // dismiss dialog
+            dialog.dismiss()
+        }
+
+        // event handling for user pressing cancel button (do nothing)
+        builder.setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        // present dialog with animations
+        val dialog = builder.create()
+        dialog.setContentView(R.layout.activity_main)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.show()
+    }
 
     // Helper function to toggle the visibility of the RecyclerView sections for food and drinks
     private fun toggleSection(recyclerView: RecyclerView, button: MaterialButton) {
@@ -375,7 +470,7 @@ class MainActivity : AppCompatActivity() {
         // Cap number of available seats at 8
         if (increment && numOfSeats < 8) {
             numOfSeats++
-        // Ensure number of seats isnt negative
+            // Ensure number of seats isnt negative
         } else if (!increment && numOfSeats > 0) {
             numOfSeats--
         }
@@ -386,7 +481,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // method responsible for handling vegan button toggle
-    private fun toggleVeganButton(){
+    private fun toggleVeganButton() {
         // flip value after toggled
         isVegan = !isVegan
         applyColorTransition(veganButton, isVegan)
@@ -399,19 +494,35 @@ class MainActivity : AppCompatActivity() {
           if toggled off: go from green to gray
           if toggled on: go from gray to green
          */
-        val buttonColorFrom = if (toggled) ContextCompat.getColor(this, R.color.light_gray) else ContextCompat.getColor(this, R.color.green)
-        val buttonColorTo = if (toggled) ContextCompat.getColor(this, R.color.green) else ContextCompat.getColor(this, R.color.light_gray)
+        val buttonColorFrom = if (toggled) ContextCompat.getColor(
+            this,
+            R.color.light_gray
+        ) else ContextCompat.getColor(this, R.color.green)
+        val buttonColorTo =
+            if (toggled) ContextCompat.getColor(this, R.color.green) else ContextCompat.getColor(
+                this,
+                R.color.light_gray
+            )
 
         /*
           Get color values of text color:
           if toggled off: go from white to black
           if toggled on: go from black to white
         */
-        val textColorFrom = if (toggled) ContextCompat.getColor(this, R.color.black) else ContextCompat.getColor(this, R.color.white)
-        val textColorTo = if (toggled) ContextCompat.getColor(this, R.color.white) else ContextCompat.getColor(this, R.color.black)
+        val textColorFrom =
+            if (toggled) ContextCompat.getColor(this, R.color.black) else ContextCompat.getColor(
+                this,
+                R.color.white
+            )
+        val textColorTo =
+            if (toggled) ContextCompat.getColor(this, R.color.white) else ContextCompat.getColor(
+                this,
+                R.color.black
+            )
 
         // Animate background color
-        val backgroundColorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), buttonColorFrom, buttonColorTo)
+        val backgroundColorAnimation =
+            ValueAnimator.ofObject(ArgbEvaluator(), buttonColorFrom, buttonColorTo)
         backgroundColorAnimation.duration = 200  // Duration of the color transition
         backgroundColorAnimation.addUpdateListener { animator ->
             button.setBackgroundColor(animator.animatedValue as Int) // Update background color
@@ -421,7 +532,8 @@ class MainActivity : AppCompatActivity() {
         val textColorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), textColorFrom, textColorTo)
         textColorAnimation.duration = 200  // Duration of the color transition
         textColorAnimation.addUpdateListener { animator ->
-            val color = animator.animatedValue as Int // set color for use for both text and icon colors
+            val color =
+                animator.animatedValue as Int // set color for use for both text and icon colors
             button.setTextColor(animator.animatedValue as Int) // update text color
             button.iconTint = android.content.res.ColorStateList.valueOf(color) // update icon color
         }

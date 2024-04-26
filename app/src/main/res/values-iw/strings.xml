@@ -62,5 +62,7 @@
     <string name="no">לא</string>
 
     <string name="reservation_title">הזמנה</string>
+    <string name="reservation_time_error">עליך לבחור שעה</string>
+    <string name="reservation_payment_method_error">עליך לבחור שיטת תשלום</string>
 
 </resources>
