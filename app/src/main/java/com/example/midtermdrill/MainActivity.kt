@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.NumberPicker
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.core.widget.NestedScrollView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -46,6 +47,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nestedScrollView: NestedScrollView
     private lateinit var foodAdapter: MenuAdapter
     private lateinit var drinksAdapter: MenuAdapter
+
+    // variable to hold the current language - init to the device's default
+    private var currentLocale = Locale.getDefault().language
 
     // counter for the number of seats selected, initialized to 0
     private var numOfSeats = 0
@@ -320,7 +324,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // this method is responsible for showing the dialog for changing languages
+    // this method is responsible for displaying the dialog for changing languages
     private fun showLanguageDialog() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -328,56 +332,59 @@ class MainActivity : AppCompatActivity() {
         builder.setView(dialogView)
 
         // set the title of the dialog according to the current language
-        builder.setTitle(R.string.dialog_language_select)
+        builder.setTitle(getString(R.string.dialog_language_select))
 
+        // get radio buttons' references
+        val radioGroup = dialogView.findViewById<RadioGroup>(R.id.radioGroupLanguages)
         val radioButtonEnglish = dialogView.findViewById<RadioButton>(R.id.radioButtonEnglish)
         val radioButtonHebrew = dialogView.findViewById<RadioButton>(R.id.radioButtonHebrew)
 
-        // Check current locale and set buttons according to the user selection
-        val currentLocale = Locale.getDefault().language
-        if (currentLocale.equals("iw", ignoreCase = true) || currentLocale.equals(
-                "he", ignoreCase = true
-            )
-        ) {
-            radioButtonHebrew.isChecked = true
-        } else {
-            radioButtonEnglish.isChecked = true
+        // set buttons state checked according to the currentLocale
+        radioButtonEnglish.isChecked = currentLocale.equals("en", ignoreCase = true)
+        radioButtonHebrew.isChecked = !radioButtonEnglish.isChecked
+
+        // define a temporary variable to hold the new selected language
+        var selectedLanguage = currentLocale
+
+        // use RadioGroup setOnCheckedChangeListener to handle language changes dynamically
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            selectedLanguage = when (checkedId) {
+                R.id.radioButtonEnglish -> "en"
+                R.id.radioButtonHebrew -> "iw"
+                else -> currentLocale
+            }
         }
 
-        // change language if user confirmed selection
+        // if accepted and language was changed, call on changeLocale method to change language
         builder.setPositiveButton(R.string.dialog_accept) { dialog, _ ->
-            if (radioButtonEnglish.isChecked) {
-                setLocale("en")
-            } else {
-                setLocale("iw")
+            if (currentLocale != selectedLanguage) {
+                setLocale(selectedLanguage)
             }
             dialog.dismiss()
         }
-        // if user canceled selection don't do anything
+        // if cancelled, do nothing
         builder.setNegativeButton(R.string.dialog_cancel) { dialog, _ -> dialog.dismiss() }
 
-        // present dialog with animations
+        // present dialog with animation
         val dialog = builder.create()
-        dialog.setContentView(R.layout.activity_main)
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
     }
 
-
-    // this method is responsible for changing the language displayed in the app
+    // This method changes the language in which the app is displayed
     private fun setLocale(language: String) {
-        val currentLocale = Locale.getDefault().language
-        // changes to the language if the current language is different
-        if (!currentLocale.equals(language, ignoreCase = true)) {
-            val locale = Locale(language)
-            Locale.setDefault(locale)
-            val config = Configuration()
-            config.setLocale(locale)
-            resources.updateConfiguration(config, resources.displayMetrics)
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(config, resources.displayMetrics)
 
-            // refresh the activity to apply the new locale
-            recreate()
-        }
+        // update current locale global var
+        currentLocale = language
+
+        // Refresh the activity to apply the new locale settings
+        recreate()
+
     }
 
     // this method is responsible for displaying the dialog for the time selection picker
@@ -455,7 +462,6 @@ class MainActivity : AppCompatActivity() {
 
         // present dialog with animations
         val dialog = builder.create()
-        dialog.setContentView(R.layout.activity_main)
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
     }
@@ -492,7 +498,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         // present dialog with animations
-        dialog.setContentView(R.layout.activity_main)
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
     }
@@ -530,7 +535,6 @@ class MainActivity : AppCompatActivity() {
             .create()
 
         // present dialog with animations
-        dialog.setContentView(R.layout.activity_main)
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
 
