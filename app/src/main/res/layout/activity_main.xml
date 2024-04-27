@@ -24,7 +24,7 @@
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="@string/menu_text"
-            android:textSize="35sp"
+            android:textSize="50sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -111,9 +111,10 @@
         <!-- Reserve seats button -->
         <Button
             android:id="@+id/reserveSeatsButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintWidth_max="320dp"
             android:gravity="center"
             android:text="@string/reserve_btn_text"
             android:textSize="15sp"
@@ -127,18 +128,19 @@
             android:id="@+id/numOfSeats"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/seat_selector_outline"
             android:layoutDirection="ltr"
             app:layout_constraintBottom_toTopOf="@id/paymentButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            >
 
             <!-- Decrease seat number Button -->
             <Button
                 android:id="@+id/decreaseButton"
                 style="@style/CustomButton"
-                android:layout_width="48dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:insetTop="0dp"
@@ -146,7 +148,7 @@
                 android:text="-"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/numOfSeatsText"
-                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
@@ -154,7 +156,7 @@
             <!-- Number of selected seats display -->
             <TextView
                 android:id="@+id/numOfSeatsText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/num_of_seats_text"
@@ -169,7 +171,7 @@
             <Button
                 android:id="@+id/increaseButton"
                 style="@style/CustomButton"
-                android:layout_width="48dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:insetTop="0dp"
@@ -189,9 +191,7 @@
             style="@style/CustomButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="12dp"
-            android:minWidth="110dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/payment_method_text"
             app:icon="@drawable/payment_icon"
             app:iconGravity="textStart"
@@ -199,9 +199,7 @@
             app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
             app:layout_constraintEnd_toStartOf="@id/timeButton"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_default="wrap" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Time select button -->
         <Button
@@ -209,19 +207,14 @@
             style="@style/CustomButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="12dp"
-            android:minWidth="110dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/time_text"
             app:icon="@drawable/time_icon"
             app:iconGravity="textStart"
             app:iconTint="@color/black"
             app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
-            app:layout_constraintEnd_toStartOf="@+id/veganButton"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/paymentButton"
-            app:layout_constraintWidth_default="wrap"
-            />
+            app:layout_constraintEnd_toStartOf="@id/veganButton"
+            app:layout_constraintStart_toEndOf="@id/paymentButton" />
 
         <!-- Vegan selection button -->
         <Button
@@ -229,18 +222,14 @@
             style="@style/CustomButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="12dp"
-            android:minWidth="110dp"
             android:text="@string/vegan_text"
             app:icon="@drawable/vegan_icon"
             app:iconGravity="textStart"
             app:iconTint="@color/black"
             app:layout_constraintBottom_toTopOf="@id/reserveSeatsButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/timeButton"
-            app:layout_constraintWidth_default="wrap" />
+            app:layout_constraintStart_toEndOf="@id/timeButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
